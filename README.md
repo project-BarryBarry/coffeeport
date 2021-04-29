@@ -7,3 +7,5 @@
 * nProtect
 * touchEn
 * AnySign4PC
+## 아무튼 비슷한 프로젝트(참고함)
+* [Passive X](https://github.com/devunt/PassiveX)
