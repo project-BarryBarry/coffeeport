@@ -2,6 +2,7 @@
 보안 프로그램 설치된 척하기
 ## 목표
 다음 프로그램을 대체하는 것이 목표입니다.
+다만, veraport를 제외하고는 레포를 분리할 가능성이 있습니다.
 * veraport
 * Ahnlab Safe Transaction
 * nProtect
