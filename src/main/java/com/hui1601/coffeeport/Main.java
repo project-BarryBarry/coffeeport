@@ -9,6 +9,7 @@ public class Main extends NanoHTTPD {
 //        원래 값을 적당히 가져와서 호스트, 포트를 바꿀 수 있도록 할려 했으나, 보안 문제가 있을 수 있어 제한함.
         super("127.0.0.1", 16106);
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+        System.out.println("Coffeeport Started!");
     }
 
     public static void main(String[] args) {

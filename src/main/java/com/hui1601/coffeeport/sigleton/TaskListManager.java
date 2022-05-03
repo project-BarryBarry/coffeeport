@@ -3,7 +3,6 @@ package com.hui1601.coffeeport.sigleton;
 import com.hui1601.coffeeport.dto.TaskDTO;
 
 import java.util.HashMap;
-import java.util.Queue;
 
 public class TaskListManager {
     private TaskListManager(){
