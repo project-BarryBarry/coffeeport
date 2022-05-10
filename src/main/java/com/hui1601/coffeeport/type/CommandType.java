@@ -7,7 +7,7 @@ public enum CommandType {
     VERSION("getVersion"),
     @SerializedName("getAxInfo")
     AX_INFO("getAxInfo");
-    private String type = "";
+    private final String type;
     CommandType(String type){
         this.type = type;
     }

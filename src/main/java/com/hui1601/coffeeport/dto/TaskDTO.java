@@ -1,9 +1,6 @@
 package com.hui1601.coffeeport.dto;
 
 import com.google.gson.Gson;
-import com.hui1601.coffeeport.type.CommandType;
-import com.hui1601.coffeeport.type.ContextType;
-import com.hui1601.coffeeport.type.LanguageType;
 
 public class TaskDTO {
     private String callback;

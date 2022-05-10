@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.hui1601.coffeeport.constant.Config;
 import com.hui1601.coffeeport.dto.ResponseDTO;
 import com.hui1601.coffeeport.dto.TaskDTO;
+import com.hui1601.coffeeport.handler.CommandHandler;
 import com.hui1601.coffeeport.utils.ResponseUtil;
 import fi.iki.elonen.NanoHTTPD;
 
@@ -49,10 +50,8 @@ public class Main extends NanoHTTPD {
         }
         task.setCallback(parameters.get("callback").get(0));
         task.setData(parameters.get("data").get(0));
-        switch (task.getData().getCmd()){
-            case VERSION -> response.setData(Config.veraVersion);
-            case AX_INFO -> response.setData("");
-        }
+        CommandHandler.handleCommand(response, task);
+        System.out.println(task);
         return ResponseUtil.getCallback(task.getCallback(), response);
     }
 }
