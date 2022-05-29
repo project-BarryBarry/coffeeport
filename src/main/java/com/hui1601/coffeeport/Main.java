@@ -19,7 +19,7 @@ public class Main extends NanoHTTPD {
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
     public Main() throws IOException {
 //        원래 값을 적당히 가져와서 호스트, 포트를 바꿀 수 있도록 할려 했으나, 보안 문제가 있을 수 있어 제한함.
-        super(Config.host, Config.port);
+        super(Config.host, Config.httpPort);
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
         LOG.info("Coffeeport Started!");
     }
@@ -32,7 +32,6 @@ public class Main extends NanoHTTPD {
             LOG.severe("Failed to start Coffeeport");
             err.printStackTrace();
         }
-        LOG.info("Stop...");
     }
     @Override
     public Response serve(IHTTPSession session){
@@ -50,8 +49,9 @@ public class Main extends NanoHTTPD {
         }
         task.setCallback(parameters.get("callback").get(0));
         task.setData(parameters.get("data").get(0));
+
+        // handle command
         CommandHandler.handleCommand(response, task);
-        System.out.println(task);
         return ResponseUtil.getCallback(task.getCallback(), response);
     }
 }
