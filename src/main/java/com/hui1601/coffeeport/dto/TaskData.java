@@ -1,10 +1,11 @@
 package com.hui1601.coffeeport.dto;
 
+import com.google.gson.Gson;
 import com.hui1601.coffeeport.type.CommandType;
 
 public class TaskData {
     private CommandType cmd;
-    private Data data;
+    private Object data;
 
     private String sid;
 
@@ -17,7 +18,11 @@ public class TaskData {
     }
 
     public Data getData() {
-        return data;
+        return switch (data){
+            case String string -> (Data) (data = new Gson().fromJson(string, Data.class));
+            case Data data -> data;
+            default -> null;
+        };
     }
 
     public void setData(Data data) {

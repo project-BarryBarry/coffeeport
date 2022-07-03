@@ -27,4 +27,9 @@ public class ResponseDTO {
                 ", data=" + data +
                 '}';
     }
+
+    public void copyRes(ResponseDTO result) {
+        this.setRes(result.getRes());
+        this.setData(result.getData());
+    }
 }

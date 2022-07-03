@@ -5,6 +5,11 @@ import com.google.gson.annotations.SerializedName;
 public enum CommandType {
     @SerializedName("getVersion")
     VERSION("getVersion"),
+    @SerializedName("getOsInfo")
+    OS_INFO("getOsInfo"),
+
+    @SerializedName("getResult")
+    RESULT("getResult"),
     @SerializedName("getAxInfo")
     AX_INFO("getAxInfo");
     private final String type;

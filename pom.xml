@@ -15,6 +15,7 @@
                 <configuration>
                     <source>18</source>
                     <target>18</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
@@ -26,34 +27,34 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.nanohttpd</groupId> <!-- <groupId>com.nanohttpd</groupId> for 2.1.0 and earlier -->
+            <groupId>org.nanohttpd</groupId>
             <artifactId>nanohttpd</artifactId>
             <version>2.3.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.9.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-ext-jdk18on -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-ext-jdk18on</artifactId>
             <version>1.71</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
             <version>1.71</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.9</version>
+        </dependency>
     </dependencies>
 </project>
