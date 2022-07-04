@@ -11,6 +11,7 @@ import com.hui1601.coffeeport.handler.TaskHandler;
 import com.hui1601.coffeeport.sigleton.TaskListManager;
 import com.hui1601.coffeeport.utils.FileUtil;
 import com.hui1601.coffeeport.utils.ResponseUtil;
+import com.hui1601.coffeeport.utils.SecurityUtil;
 import com.hui1601.coffeeport.utils.SystemUtil;
 import fi.iki.elonen.NanoHTTPD;
 
@@ -21,6 +22,7 @@ import java.io.Reader;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.List;
@@ -41,16 +43,11 @@ public class Main extends NanoHTTPD {
 
     private void loadKeyStore(){
         try {
-            if(!FileUtil.exists(SystemUtil.getKeystorePath())){
-                KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
-                char[] pwdArray = SystemUtil.getHashedUUID().toCharArray();
-                ks.load(null, pwdArray);
-                ks.store(new FileOutputStream(SystemUtil.getKeystorePath()), pwdArray);
-                LOG.info("KeyStore Created!");
-            }
-
-            super.makeSecure();
-        } catch (IOException | KeyStoreException | NoSuchAlgorithmException | CertificateException e) {
+            KeyStore keyStore = SecurityUtil.getKeystore();
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            keyManagerFactory.init(keyStore, SystemUtil.getHashedUUID().toCharArray());
+            super.makeSecure(NanoHTTPD.makeSSLSocketFactory(keyStore, keyManagerFactory), null);
+        } catch (IOException | KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new RuntimeException(e);
         }
     }

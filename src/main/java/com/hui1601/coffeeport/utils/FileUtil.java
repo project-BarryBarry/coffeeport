@@ -33,4 +33,11 @@ public class FileUtil {
     public static boolean exists(String s) {
         return Files.exists(Path.of(s));
     }
+
+    public static void createDir(String path) {
+        try {
+            Files.createDirectories(Path.of(path));
+        } catch (IOException ignored) {
+        }
+    }
 }

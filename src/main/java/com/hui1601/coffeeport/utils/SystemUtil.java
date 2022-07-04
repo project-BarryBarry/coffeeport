@@ -48,11 +48,15 @@ public class SystemUtil {
         return System.getProperty("os.name");
     }
     public static String getAppDataPath(){
-        return switch (getOs()){
+        String path = switch (getOs()){
             case Windows -> System.getenv("AppData");
             case MacOS -> System.getProperty("user.home") + "/Library/Application Support";
             case Unix,Linux,Unknown -> System.getProperty("user.home") + "/.config";
         } + "/coffeeport/";
+        if(!FileUtil.exists(path)){
+            FileUtil.createDir(path);
+        }
+        return path;
     }
 
     public static String getKeystorePath(){
@@ -69,6 +73,6 @@ public class SystemUtil {
     }
 
     public static String getHashedUUID(){
-        return StringUtil.getHashedString(getUUid());
+        return SecurityUtil.encryptSha3(getUUid());
     }
 }
