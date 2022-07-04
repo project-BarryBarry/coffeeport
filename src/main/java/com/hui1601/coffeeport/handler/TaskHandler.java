@@ -11,6 +11,7 @@ public class TaskHandler extends Thread{
     @Override
     public void run() {
         Logger.getLogger(this.getName()).info("TaskHandler started!");
+        //noinspection InfiniteLoopStatement
         while (true) {
             String[] tasks = TaskListManager.getInstance().getTaskList();
             for (String sid : tasks) {
@@ -19,7 +20,8 @@ public class TaskHandler extends Thread{
                     continue;
                 }
                 Logger.getLogger(this.getName()).info("Handling sid: " + sid);
-                Logger.getLogger(this.getName()).info("task cmd: " + taskDTO.getData().getCmd().toString());
+                if(taskDTO.getData().getCmd() != null)
+                    Logger.getLogger(this.getName()).info("task cmd: " + taskDTO.getData().getCmd().toString());
                 ResponseDTO res = new ResponseDTO();
                 CommandHandler.handleCommand(res, taskDTO);
                 taskDTO.setCallbackData(res);

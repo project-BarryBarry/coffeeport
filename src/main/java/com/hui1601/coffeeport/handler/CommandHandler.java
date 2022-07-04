@@ -11,18 +11,20 @@ import com.hui1601.coffeeport.utils.SystemUtil;
 public class CommandHandler {
     public static void handleCommand(ResponseDTO res, TaskDTO task){
         res.setRes(0);
-        res.setData(switch (task.getData().getCmd()){
-            case VERSION -> getVersion();
-            case OS_INFO -> getOsInfo();
-            case RESULT -> getResult(task.getSid());
-            case AX_INFO -> getInstallationInfo(task.getData().getData());
-        });
+        if(task.getData().getCmd() != null) {
+            res.setData(switch (task.getData().getCmd()) {
+                case VERSION -> getVersion();
+                case OS_INFO -> getOsInfo();
+                case RESULT -> getResult(task.getSid());
+                case AX_INFO -> getInstallationInfo();
+            });
+        }
         if(res.getData() == null) res.setRes(1);
     }
     private static Object getVersion(){
         return Config.veraVersion;
     }
-    private static Object getInstallationInfo(Data data){
+    private static Object getInstallationInfo(){
         return Config.veraVersion;
     }
     private static Object getOsInfo(){

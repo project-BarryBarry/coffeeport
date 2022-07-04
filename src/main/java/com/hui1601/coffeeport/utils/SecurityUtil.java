@@ -44,17 +44,16 @@ public class SecurityUtil {
     public static void generateKeyStore(KeyStore keyStore) {
         Security.addProvider(new BouncyCastleProvider());
 
-        X500Principal subject = new X500Principal("CN=localhost\nSAN=127.0.0.1");
+        X500Principal subject = new X500Principal("CN=localhost");
         KeyPair keyPair = generateKeyPair();
 
         long notBefore = System.currentTimeMillis();
         long notAfter = notBefore + (1000L * 3600L * 24 * 365);
 
-        ASN1Encodable[] encodableAltNames = new ASN1Encodable[]{new GeneralName(GeneralName.dNSName, "localhost")};
+        ASN1Encodable[] encodableAltNames = new ASN1Encodable[]{new GeneralName(GeneralName.dNSName, "localhost"), new GeneralName(GeneralName.dNSName, "127.0.0.1")};
         KeyPurposeId[] purposes = new KeyPurposeId[]{KeyPurposeId.id_kp_serverAuth, KeyPurposeId.id_kp_clientAuth};
 
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(subject,
-                BigInteger.ONE, new Date(notBefore), new Date(notAfter), subject, keyPair.getPublic());
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(subject, BigInteger.ONE, new Date(notBefore), new Date(notAfter), subject, keyPair.getPublic());
 
         try {
             certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
