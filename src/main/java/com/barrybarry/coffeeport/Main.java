@@ -19,6 +19,7 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+        TaskHandler th = new TaskHandler();
         try {
             ServerBuilder sb = Server.builder();
             Server server;
@@ -31,13 +32,13 @@ public class Main {
             keyManagerFactory.init(keyStore, SystemUtil.getHashedUUID().toCharArray());
             sb.tls(keyManagerFactory);
             sb.annotatedService(new VeraportRouter());
-            TaskHandler th = new TaskHandler();
             server = sb.build();
             server.closeOnJvmShutdown();
             th.start();
             server.start().join();
         } catch (Exception err) {
             logger.error("Failed to start Coffeeport", err);
+            th.interrupt();
         }
     }
 }
