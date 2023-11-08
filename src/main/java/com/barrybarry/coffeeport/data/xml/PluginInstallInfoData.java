@@ -23,6 +23,10 @@ public class PluginInstallInfoData {
     private String systemID;
     @JsonProperty("sslVerify")
     private String sslVerify;
+    @JsonProperty("subjectDNs")
+    private String subjectDNs;
+    @JsonProperty("hashes")
+    private String hashes;
     @Getter
     @Setter
     public static class PluginInfo {
@@ -37,6 +41,9 @@ public class PluginInstallInfoData {
 
         @JsonProperty("signVerify")
         private String signVerify;
+
+        @JsonProperty("hashCheck")
+        private String hashCheck;
 
         @JsonProperty("browserType")
         private String browserType;
