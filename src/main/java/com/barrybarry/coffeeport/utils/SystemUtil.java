@@ -95,7 +95,7 @@ public class SystemUtil {
         try {
             XmlMapper xmlMapper = new XmlMapper();
             // write xml to tmp dir for debug
-            FileUtil.writeContent("./tmp/activexInfo.xml", pluginInstallInfo);
+//            FileUtil.writeContent("./tmp/activexInfo.xml", pluginInstallInfo);
             PluginInstallInfoData info = xmlMapper.readValue(pluginInstallInfo, PluginInstallInfoData.class);
             logger.debug("Successfully parsed plugin install info");
             if(!info.getAllowContexts().equals("wizvera")){
