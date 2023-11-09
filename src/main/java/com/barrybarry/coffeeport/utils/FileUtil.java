@@ -1,13 +1,18 @@
 package com.barrybarry.coffeeport.utils;
 
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+@SuppressWarnings("unused")
 public class FileUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
     public static @Nullable String readContent(String path) {
         try {
             return String.join("\n", Files.readAllLines(Path.of(path)));
@@ -31,6 +36,13 @@ public class FileUtil {
         }
     }
 
+    public static void writeContent(String path, byte[] content) {
+        try {
+            Files.write(Path.of(path), content);
+        } catch (IOException ignored) {
+        }
+    }
+
     public static boolean exists(String s) {
         return FileUtil.exists(Path.of(parseFileUrl(s)));
     }
@@ -48,9 +60,16 @@ public class FileUtil {
     }
 
     public static String parseFileUrl(String url) {
-        final String prefix = "file:";
-        if (url.startsWith(prefix)) {
-            return url.substring(prefix.length());
+        final String prefixFile = "file:";
+        final String prefixScheme = "scheme:";
+        if (url.startsWith(prefixFile)) {
+            return url.substring(prefixFile.length());
+        }
+        if (url.startsWith(prefixScheme)) {
+            // seems like only delfino uses this
+            logger.warn("Experimental scheme path: " + url);
+            logger.warn("Using default delfino path: /opt/wizvera/delfino/delfino");
+            return "/opt/wizvera/delfino/delfino";
         }
         return url;
     }

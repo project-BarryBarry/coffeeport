@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class SystemUtil {
     private static final Logger logger = LoggerFactory.getLogger(SystemUtil.class.getName());
 
@@ -95,13 +96,14 @@ public class SystemUtil {
         try {
             XmlMapper xmlMapper = new XmlMapper();
             // write xml to tmp dir for debug
-//            FileUtil.writeContent("./tmp/activexInfo.xml", pluginInstallInfo);
+            FileUtil.writeContent("./tmp/activexInfo.xml", pluginInstallInfo);
             PluginInstallInfoData info = xmlMapper.readValue(pluginInstallInfo, PluginInstallInfoData.class);
             logger.debug("Successfully parsed plugin install info");
             if(!info.getAllowContexts().equals("wizvera")){
                 logger.warn("cannot find correct method to handle plugin info with {} context, but I'll try to handle it.", info.getAllowContexts());
             }
-            if(!SecurityUtil.checkAllowedDomain(origin, info.getAllowDomains())){
+            // check allowed domains
+            if(!SecurityUtil.checkAllowedDomain(origin, info.getAllowDomains().split(";"))){
                 logger.error("origin {} is not allowed to install plugin. Allowed origin: {}", origin, info.getAllowDomains());
                 return null;
             }
@@ -114,7 +116,7 @@ public class SystemUtil {
         String activexInfoBase64 = task.getData().getData().getConfigure().getActivexInfo();
         byte[] activexInfo = StringUtil.decodeBase64(activexInfoBase64);
         String axinfoContent = SecurityUtil.verifyCmsSign(activexInfo, Config.getVeraCert());
-        // activexInfo 検証に失敗した場合の処理
+        // when activexInfo signature verification failed, we don't trust this activex
         if (axinfoContent == null) {
             logger.error("Failed to verify CMS signature of activexInfo");
             return null;

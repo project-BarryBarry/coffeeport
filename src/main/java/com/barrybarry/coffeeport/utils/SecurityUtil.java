@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+@SuppressWarnings("unused")
 public class SecurityUtil {
     private static final Logger logger = Logger.getLogger(SecurityUtil.class.getName());
     public static String encryptSha3(String uuid) {
@@ -172,14 +173,13 @@ public class SecurityUtil {
         return result;
     }
 
-    public static boolean checkAllowedDomain(String origin, String allowDomains){
+    public static boolean checkAllowedDomain(String origin, String[] allowDomains){
         boolean result = false;
-        if (allowDomains == null || allowDomains.isEmpty()) {
+        if (allowDomains == null || allowDomains.length == 0) {
             return true;
         }
-        String[] domains = allowDomains.split(";");
-        for (String domain : domains) {
-            // * matches only subdomains
+        for (String domain : allowDomains) {
+            // * matches only subdomains. 2nd level subdomain is not matched.
             if (domain.startsWith("*.")) {
                 String domainName = domain.substring(2);
                 if (origin.endsWith(domainName)) {

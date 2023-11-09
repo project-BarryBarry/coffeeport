@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 
+@SuppressWarnings("unused")
 public class StringUtil {
     private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
     public static String unescapeString(String str) {
