@@ -1,5 +1,5 @@
 # coffeeport
-[![CodeQL](https://github.com/project-BarryBarry/coffeeport/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/project-BarryBarry/coffeeport/actions/workflows/codeql.yml)
+[![CodeQL](https://github.com/project-BarryBarry/coffeeport/actions/workflows/codeql.yml/badge.svg?branch=master)](https://github.com/project-BarryBarry/coffeeport/actions/workflows/codeql.yml)
 [![Java CI with Maven](https://github.com/project-BarryBarry/coffeeport/actions/workflows/maven.yml/badge.svg)](https://github.com/project-BarryBarry/coffeeport/actions/workflows/maven.yml)
 
 Veraport Alternative Project
